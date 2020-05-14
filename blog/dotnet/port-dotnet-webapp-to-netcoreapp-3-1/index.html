@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A blog site covering software engineering topics, e.g. cloud native, microservices, automatation.">
+  <meta name="author" content="Wael Rabadi">
+  <title>Port .NET WebApp to .Net Core App 3.1 | @rabadiw</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/font-awesome/css/all.min.css">
+  <!-- Custom styles for this template -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/blog.css">
+  
+</head>
+
+<body>  
+  
+  <header class="sticky-top blog-header shadow-sm py-3">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand blog-header-logo text-dark" href="/">@rabadiw</a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse text-center" id="navigation">
+          
+          <div class="d-lg-none d-block">
+            
+            <a href="https:&#x2F;&#x2F;github.com&#x2F;rabadiw">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;twitter.com&#x2F;rabadiw">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;waelrabadi">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+          </div>
+        </div>
+        
+        <div class="d-lg-flex d-none">
+          
+          <a href="https:&#x2F;&#x2F;github.com&#x2F;rabadiw">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+          <a href="https:&#x2F;&#x2F;twitter.com&#x2F;rabadiw">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+          <a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;waelrabadi">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+
+           
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+
+  
+
+  <div class="container">
+  
+  
+  <main role="main">
+    
+
+<div class="row">    
+    <aside class="col-md-3 blog-sidebar pt-4 pr-4 border-right border-default">
+        
+        <nav role="navigation">
+        
+        
+        
+            
+            
+            <div class="p-3">
+            <h3 class="font-italic border-bottom">.NET</h3>
+
+            
+            <ol class="mb-0">
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;add-swagger-to-netcoreapp-3-1&#x2F;">
+                        
+                        Add Swagger &amp; API Explorer to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-console-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET Console App to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-unittest-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET UnitTest to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li class="my-2 active">
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-webapp-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET WebApp to .Net Core App 3.1
+                    </a>
+                </li>
+                
+            </ol>
+            
+            </div>
+        
+        
+        </nav>
+    </aside><!-- /.blog-sidebar -->
+
+    <article class="col-md-9 blog-main px-lg-5 px-4 pt-4">
+        <nav class="navbar navbar-expand navbar-light bg-transparent border-bottom px-0">
+            
+            <div class="dropdown" title="TOC" style="margin-left: -1rem;">
+                <!--Trigger-->
+                <a class="btn-floating btn-lg" type="button" id="tocMenu" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>          
+                <!--Menu-->
+                <div class="dropdown-menu dropdown-primary">
+                    
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#why">Why?</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#prerequisite">Prerequisite</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#porting-principles">Porting Principles</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#what-will-we-be-porting">What will we be porting?</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#project">Project</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#nuget">Nuget</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#project-structure-configuration">Project Structure &amp; Configuration</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#net-core-controller-changes">.NET Core Controller Changes</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#entity-framework-changes">Entity Framework Changes</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/#other-useful-links">Other Useful Links</a>
+                    
+                </div>
+            </div>
+            
+            <p class="navbar-brand blog-post-title font-weight-medium text-dark">Port .NET WebApp to .Net Core App 3.1</p>
+        </nav>
+        <div class="article-header px-lg-4 pt-4">
+                        
+            <p>Microsoft .NET Framework was first released on <a href="https://en.wikipedia.org/wiki/.NET_Framework_version_history">February 12, 2002</a> and has since been a very active set of languages and framework. Although it is very hard to determine the number of project across the globe, we can guesstimate the number, what is considered legacy apps, to be in the 10s of thousands. By legacy, I mean projects written pre <a href="https://en.wikipedia.org/wiki/.NET_Core">.NET Core</a> - a modern compiler and framework redesigned to run on cloud native environment. Moving from legacy to modern compiler and framework does not have to mean porting your app to a new language and rewriting decaded of business logic. 😉</p>
+<span id="continue-reading"></span><h1 id="why">Why?</h1>
+<p>This is a valid question and one that is easily glanced over. Why refactor to .NET Core? Why not port the code to another programming language? There are two angles to evaluate this proposition. The first, from the side of business, is an evaluation from the perspective of time, money and business continuity. The second, from the side of technology, is an evaluation of the language's capabilities and fit within a modern cloud architecture. </p>
+<p>From the technical side, Microsoft has demonstrated the improvements of .NET in this area. Most notably, .NET Core is:</p>
+<ul>
+<li>cross-platform</li>
+<li>open for modularity</li>
+<li>comes with modern toolings, and </li>
+<li>backed by a world class technical support. </li>
+</ul>
+<p>The business side is up to you!</p>
+<h1 id="prerequisite">Prerequisite</h1>
+<p>What can be ported? The answer to this is any .NET Framework app. The complexity resides in the end-of-life (EOL) technology stack used in that project and what are the recommend actions. This article is not an exhaustive list. Microsoft does provide a breakdown of these issues in their docs. </p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/core/compatibility/fx-core">Breaking changes for migration from .NET Framework to .NET Core</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/core/porting/net-framework-tech-unavailable?toc=/dotnet/core/compatibility/toc.json&amp;bc=/dotnet/breadcrumb/toc.json">.NET Framework technologies unavailable on .NET Core</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/core/compatibility/unsupported-apis">APIs that always throw exceptions on .NET Core</a></li>
+</ul>
+<p>Microsoft also provides an &quot;<a href="https://docs.microsoft.com/en-us/dotnet/core/porting/">Overview of porting from .NET Framework to .NET Core</a>.&quot;  Along with &quot;<a href="https://docs.microsoft.com/en-us/dotnet/core/porting/tools">Tools to help with porting to .NET Core</a>.&quot;</p>
+<p>Main technologies intended to be left on .NET Framework. </p>
+<ul>
+<li>Windows Communication Foundation (WCF)
+<ul>
+<li>See <a href="https://github.com/CoreWCF/CoreWCF">Core WCF OSS</a>. The WCF Team has donated the code to the OSS community. According to the <a href="https://www.dotnetfoundation.org/blog/2019/06/07/welcoming-core-wcf-to-the-net-foundation">post</a>, however, &quot;Core WCF is not intending to be a 100% compatible port of WCF to .NET Core, but aims to allow porting of many WCF contract and service implementations with only a change of namespace.&quot; </li>
+</ul>
+</li>
+<li>ASP.NET Web Forms</li>
+<li>Windows Workflow
+<ul>
+<li>See <a href="https://github.com/UiPath/corewf">Core WF OSS</a>. It, too, comes with the disclaimer, &quot;This project only ports the WF runtime and ETW tracking provider to the .NET Standard. But much more work is needed before it can substitute for the .NET Framework version.&quot;</li>
+</ul>
+</li>
+<li>.NET Remoting </li>
+</ul>
+<p>This may sound like a dead end for most. However, with technologies not coming over, Microsoft has provided other technologies to take their place. In most part, these are better solutions then what we had with .NET Framework. We will visit those in later posts and are outside the context of this article. </p>
+<h1 id="porting-principles">Porting Principles</h1>
+<p>These are guiding principles to help keep you on track as you go through the porting process. </p>
+<ul>
+<li><strong>Refrain from code improvements</strong>. This is not an opportunity to optimize the code base. Doing so will only complicate the process and potentially take you down endless rabbit holes.</li>
+<li><strong>Focus on minimal refactoring</strong>. .NET Core provides IoC capabilities as the core building blocks. Take advantage of these, but for the initial port keep it to a minimum and stay focused on code parity. Take note of patterns that can be revisited post port.</li>
+<li><strong>Practice TDD</strong> - Use test driven development practices to validate correctness of code</li>
+<li><strong>Pause feature development</strong>. This will only complicate the process and take you down a merge nightmare. If you keep the focus to minimal refactor, the port will be fairly quick and the team can get back to feature development in no time.</li>
+<li><strong>Bug Fixes Branch</strong>. If needed, continue code fixes on a different branch</li>
+</ul>
+<h1 id="what-will-we-be-porting">What will we be porting?</h1>
+<p>The focus of the remaining of this article is a port of an app from Framework ASP.NET, Web API, Entity Framework, Tests and Console to .NET Core App 3.1. The project was made up of 4 project in a single solution. It took roughly 4 days to port from .NET Framework to .NET Core. </p>
+<p>The process is broken down into areas. Each area will discuss points on interest and learnings.</p>
+<h1 id="project">Project</h1>
+<p><strong>Keep current project in tact.</strong> This is similar in practice as applying the <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler">strangler pattern</a>. Doing so will keep the project as a point of reference. More importantly, it keeps the compiler happy and allows for porting each project independently. When selecting the project, always start with the core project (i.e. one with the least to no dependency).</p>
+<p><strong>Preserve project name and namespace.</strong> When creating the project, keep the project name and namespace the same. Do choose a new folder to create the project in. This could be as simple as naming the folder <code>port</code>. If you choose to create a Visual Studio solution folder, make sure it does not end up in the namespace.</p>
+<p><strong>Create an equivalent project under the .NET Core template.</strong> For an ASP.NET MVC project create the equivalent ASP.NET Core MVC project. Doing this step will create an empty project with a .NET Core template. Mainly the <code>csproj</code> XML structure.</p>
+<ul>
+<li><strong>Port AppSettings &amp; ConnectionStrings.</strong> Notice no Web.Config file. Instead copy all <code>&lt;appSettings&gt;</code> key/value pairs to a new <code>appsettings.json</code> file. Do the same for <code>ConnectionStrings</code>. Here's an example file.<pre style="background-color:#2b2c2f;">
+<span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Logging</span><span style="color:#5fb3b3;">&quot;: {
+</span><span style="color:#cccece;">        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">LogLevel</span><span style="color:#5fb3b3;">&quot;: {
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Default</span><span style="color:#5fb3b3;">&quot;: &quot;</span><span style="color:#99c794;">Information</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Microsoft</span><span style="color:#5fb3b3;">&quot;: &quot;</span><span style="color:#99c794;">Warning</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Microsoft.Hosting.Lifetime</span><span style="color:#5fb3b3;">&quot;: &quot;</span><span style="color:#99c794;">Information</span><span style="color:#5fb3b3;">&quot;
+</span><span style="color:#cccece;">        </span><span style="color:#5fb3b3;">}
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">},
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">ConnectionStrings</span><span style="color:#5fb3b3;">&quot;: {
+</span><span style="color:#cccece;">        </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Name</span><span style="color:#5fb3b3;">&quot;: &quot;</span><span style="color:#99c794;">server=; database=; User Id=; password=; MultipleActiveResultSets=False; Encrypt=False; TrustServerCertificate=False; Connection Timeout=30;</span><span style="color:#5fb3b3;">&quot;
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">},
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">OtherKey</span><span style="color:#5fb3b3;">&quot;: &quot;</span><span style="color:#99c794;">OtherValue</span><span style="color:#5fb3b3;">&quot;
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li><strong>Move core folders and files.</strong> Depending on the app type, start to move folders and files needed by the project. For example, for an ASP.NET MVC app this would include.
+<ul>
+<li>Content</li>
+<li>Controllers</li>
+<li>Views</li>
+<li>Models</li>
+<li>Filters</li>
+<li>DAL</li>
+<li>BLL</li>
+<li>Scripts</li>
+</ul>
+</li>
+<li><strong>New Entry</strong> .NET Core introduced the <code>Program.cs</code> and <code>Startup.cs</code> files to coordinate the entry point and configuration of the app. You will be in the <code>Startup.cs</code> class for majority of the configuration steps.</li>
+</ul>
+<h1 id="nuget">Nuget</h1>
+<p>Not to be an exhaustive list, the following Nugets were used in this particular port and we found a release  that had support for .NET Core. </p>
+<ul>
+<li><a href="https://www.nuget.org/packages/DocumentFormat.OpenXml">DocumentFormat.OpenXml</a> (.NET Standard 2.0)</li>
+<li><a href="https://www.nuget.org/packages/EPPlus">EPPlus</a> (.NET Standard 2.1)
+<ul>
+<li>ExcelPackage</li>
+</ul>
+</li>
+</ul>
+<p>According to Microsoft, the number of missing Nuget Packages are very small. The difficult task here is finding a library that is equal or better for a replacement of EoL packages. With a great community support the chances here are high.</p>
+<h1 id="project-structure-configuration">Project Structure &amp; Configuration</h1>
+<ul>
+<li><strong>wwwroot</strong> Website content need to go under <code>wwwroot</code> folder. All other folders can be copied as is to preserve namespace hierarchy. </li>
+<li><strong>Program</strong> this is the entry point of the app. Here's a boiler plate code.<pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Hosting</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Hosting</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Steeltoe</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Common</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Hosting</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Steeltoe</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">CloudFoundry</span><span style="color:#5fb3b3;">;
+
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Program
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public static void </span><span style="color:#6699cc;">Main</span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">string</span><span style="color:#5fb3b3;">[] </span><span style="color:#f99157;">args</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        </span><span style="color:#6699cc;">CreateHostBuilder</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">args</span><span style="color:#5fb3b3;">).</span><span style="color:#6699cc;">Build</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">Run</span><span style="color:#5fb3b3;">();
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public static </span><span style="color:#fac863;">IHostBuilder </span><span style="color:#6699cc;">CreateHostBuilder</span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">string</span><span style="color:#5fb3b3;">[] </span><span style="color:#f99157;">args</span><span style="color:#5fb3b3;">) </span><span style="color:#c594c5;">=&gt;
+</span><span style="color:#cccece;">        Host</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">CreateDefaultBuilder</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">args</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">ConfigureWebHostDefaults</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">webBuilder </span><span style="color:#5fb3b3;">=&gt;
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">{
+</span><span style="color:#6699cc;">                </span><span style="color:#5f6364;">// if using Steeltoe.Common.Hosting
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">webBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseCloudHosting</span><span style="color:#5fb3b3;">();   
+</span><span style="color:#6699cc;">                </span><span style="color:#5f6364;">// if using Steeltoe.Extensions.Configuration.CloudFoundryCore
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">webBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddCloudFoundry</span><span style="color:#5fb3b3;">();
+</span><span style="color:#6699cc;">                </span><span style="color:#5f6364;">// standard - the startup methods for the application
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">webBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseStartup</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Startup</span><span style="color:#5fb3b3;">&gt;();
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">});
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li><strong>Match on Route</strong> within the Startup.cs file, configure your routes as required by legacy code. <pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">public void </span><span style="color:#6699cc;">Configure</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IApplicationBuilder </span><span style="color:#f99157;">app</span><span style="color:#5fb3b3;">)
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseRouting</span><span style="color:#5fb3b3;">();
+</span><span style="color:#cccece;">    app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseEndpoints</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">        </span><span style="color:#f99157;">endpoints </span><span style="color:#5fb3b3;">=&gt;
+</span><span style="color:#6699cc;">        </span><span style="color:#5fb3b3;">{
+</span><span style="color:#6699cc;">            </span><span style="color:#5f6364;">// Area registration in core
+</span><span style="color:#6699cc;">            </span><span style="color:#cccece;">endpoints</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">MapControllerRoute</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">name</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">areas</span><span style="color:#5fb3b3;">&quot;, 
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">areaName</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">areas</span><span style="color:#5fb3b3;">&quot;, 
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">pattern</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">{area:exists}/{controller=Home}/{action=Index}/{id?}</span><span style="color:#5fb3b3;">&quot;);
+</span><span style="color:#6699cc;">                </span><span style="color:#5f6364;">// in preceding example, exists is a constraint applied to match an area.
+
+</span><span style="color:#6699cc;">            </span><span style="color:#5f6364;">// for named area mapping
+</span><span style="color:#6699cc;">            </span><span style="color:#cccece;">endpoints</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">MapAreaControllerRoute</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">name</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">MyAreaProducts</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">areaName</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">Products</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">pattern</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">Products/{controller=Home}/{action=Index}/{id?}</span><span style="color:#5fb3b3;">&quot;);
+
+</span><span style="color:#6699cc;">            </span><span style="color:#5f6364;">// default controller route mapping
+</span><span style="color:#6699cc;">            </span><span style="color:#cccece;">endpoints</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">MapControllerRoute</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">name</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">default</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#6699cc;">                </span><span style="color:#f99157;">pattern</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">{controller=Home}/{action=Index}/{id?}</span><span style="color:#5fb3b3;">&quot;);
+</span><span style="color:#6699cc;">            
+</span><span style="color:#6699cc;">            </span><span style="color:#5f6364;">// If pattern is the default setting for MapControllerRoute, you can use:
+</span><span style="color:#6699cc;">            </span><span style="color:#cccece;">endpoints</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">MapDefaultControllerRoute</span><span style="color:#5fb3b3;">();
+</span><span style="color:#6699cc;">        </span><span style="color:#5fb3b3;">});
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li><strong>HttpClient</strong> downstream calls, configure once at startup and use DI where needed. <pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">public void </span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IServiceCollection </span><span style="color:#f99157;">services</span><span style="color:#5fb3b3;">)
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    services
+</span><span style="color:#cccece;">        </span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddHttpClient</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">TClientType</span><span style="color:#5fb3b3;">&gt;(&quot;</span><span style="color:#99c794;">HttpClientName</span><span style="color:#5fb3b3;">&quot;, 
+</span><span style="color:#6699cc;">            </span><span style="color:#f99157;">client </span><span style="color:#5fb3b3;">=&gt;
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">{
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">client</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">BaseAddress </span><span style="color:#5fb3b3;">= new </span><span style="color:#fac863;">Uri</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">[&quot;</span><span style="color:#99c794;">EndpointUrl</span><span style="color:#5fb3b3;">&quot;]);
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">client</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DefaultRequestHeaders</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">Add</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Accept</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">application/json</span><span style="color:#5fb3b3;">&quot;);
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">})
+</span><span style="color:#cccece;">        </span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">ConfigurePrimaryHttpMessageHandler</span><span style="color:#5fb3b3;">(() </span><span style="color:#c594c5;">=&gt;
+</span><span style="color:#6699cc;">        </span><span style="color:#5fb3b3;">{
+</span><span style="color:#6699cc;">            </span><span style="color:#c594c5;">var </span><span style="color:#cccece;">clientHandler </span><span style="color:#5fb3b3;">= new </span><span style="color:#fac863;">HttpClientHandler</span><span style="color:#5fb3b3;">()
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">{
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">UseDefaultCredentials </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">,
+</span><span style="color:#6699cc;">                </span><span style="color:#5f6364;">// Setup proxy, if needed
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">UseProxy </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">,
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">Proxy </span><span style="color:#5fb3b3;">= new </span><span style="color:#fac863;">WebProxy</span><span style="color:#5fb3b3;">() { </span><span style="color:#cccece;">Address </span><span style="color:#5fb3b3;">= new </span><span style="color:#fac863;">Uri</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">http://proxy.address</span><span style="color:#5fb3b3;">&quot;) }
+</span><span style="color:#6699cc;">            </span><span style="color:#5fb3b3;">};
+
+</span><span style="color:#6699cc;">            </span><span style="color:#c594c5;">return </span><span style="color:#cccece;">clientHandler</span><span style="color:#5fb3b3;">;
+</span><span style="color:#6699cc;">        </span><span style="color:#5fb3b3;">});
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li><strong>Layered Design DI Wiring using SQL Connection</strong> this will depend on the legacy code's approach. Here's a common setup if using a layered design.<pre style="background-color:#2b2c2f;">
+<span style="color:#5f6364;">// Startup.cs
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Startup
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#fac863;">using </span><span style="color:#99c794;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#99c794;">Data</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">SqlClient</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#fac863;">using </span><span style="color:#99c794;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#99c794;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#fac863;">using </span><span style="color:#99c794;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#99c794;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DependencyInjection</span><span style="color:#5fb3b3;">;
+
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">Startup</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IConfiguration </span><span style="color:#f99157;">configuration</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        Configuration </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">configuration</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">IConfiguration </span><span style="color:#cccece;">Configuration </span><span style="color:#5fb3b3;">{ </span><span style="color:#c594c5;">get</span><span style="color:#5fb3b3;">; }
+
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IServiceCollection </span><span style="color:#f99157;">services</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddSingleton</span><span style="color:#5fb3b3;">(new </span><span style="color:#fac863;">SqlConnection</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">GetConnectionString</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">ConnectionString</span><span style="color:#5fb3b3;">&quot;)));
+</span><span style="color:#cccece;">        services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddScoped</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">ProductDal</span><span style="color:#5fb3b3;">&gt;();
+</span><span style="color:#cccece;">        services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddScoped</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">ProductBal</span><span style="color:#5fb3b3;">&gt;();
+
+</span><span style="color:#cccece;">        services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddControllersWithViews</span><span style="color:#5fb3b3;">();
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+
+</span><span style="color:#5f6364;">// ProductDal.cs - Data Access Layer
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductDal 
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">readonly </span><span style="color:#99c794;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#99c794;">Data</span><span style="color:#5fb3b3;">.</span><span style="color:#99c794;">SqlClient</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">SqlConnection </span><span style="color:#cccece;">dbConnection</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">ProductDal</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">SqlConnection </span><span style="color:#f99157;">connection</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">dbConnection </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">connection</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+
+</span><span style="color:#5f6364;">// ProductBal.cs - Business Access Layer
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductBal 
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">readonly </span><span style="color:#fac863;">ProductDal </span><span style="color:#cccece;">productDal</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">ProductDal</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">ProductDal </span><span style="color:#f99157;">productDal</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">productDal </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">productDal</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+
+</span><span style="color:#5f6364;">// ProductController.cs -  Controller
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductController 
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">readonly </span><span style="color:#fac863;">ProductBal </span><span style="color:#cccece;">productBal</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">ProductDal</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">ProductBal </span><span style="color:#f99157;">productBal</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        </span><span style="color:#ec5f67;">this</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">productBal </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">productBal</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li><strong>AreaRegistration</strong> additional tasks
+<ul>
+<li>Read more on <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/areas?view=aspnetcore-3.1">Areas in ASP.NET Core</a></li>
+<li>Remove all {AreaName}AreaRegistration.cs from all areas. Remove web.config from views folders.</li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/areas?view=aspnetcore-3.1#area-folder-structure">Area folder structure</a></li>
+<li>Associate the controller with an Area: <pre style="background-color:#2b2c2f;">
+<span style="color:#5fb3b3;">[</span><span style="color:#cccece;">Area</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Products</span><span style="color:#5fb3b3;">&quot;)]
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductController </span><span style="color:#5fb3b3;">: </span><span style="color:#99c794;">Controller
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">IActionResult </span><span style="color:#6699cc;">Index</span><span style="color:#5fb3b3;">()
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        </span><span style="color:#c594c5;">return </span><span style="color:#6699cc;">View</span><span style="color:#5fb3b3;">();
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li>Link generation<pre style="background-color:#2b2c2f;">
+<span style="color:#cccece;">@Html</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">ActionLink</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">Product/Manage/About</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">About</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">Manage</span><span style="color:#5fb3b3;">&quot;, 
+</span><span style="color:#6699cc;">    </span><span style="color:#5fb3b3;">new { </span><span style="color:#cccece;">area </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">Products</span><span style="color:#5fb3b3;">&quot; })
+</span></pre></li>
+</ul>
+</li>
+</ul>
+<h1 id="net-core-controller-changes">.NET Core Controller Changes</h1>
+<ul>
+<li>using Microsoft.AspNetCore.Mvc;</li>
+<li>using Microsoft.AspNetCore.Mvc.Filters; (ActionFilterAttribute)</li>
+<li>Extract all layered dependencies from the controller, e.g. DataAccess/BusinessAccess/DbConnection, and instead use DependencyInjection (DI). To start use constructor based dependency. </li>
+<li>'Server.MapPath' can be replaced with 'IWebHostEnvironment'
+<ul>
+<li>Add <code>IWebHostEnvironment</code> to class constructor</li>
+</ul>
+</li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-3.1#sources">HTTP Request Model Binding Sources</a> default sequence.
+<ul>
+<li>Form fields</li>
+<li>The request body (For controllers that have the <code>[ApiController]</code> attribute.)</li>
+<li>Route data</li>
+<li>Query string parameters</li>
+<li>Uploaded files</li>
+</ul>
+</li>
+<li>JsonResult
+<ul>
+<li>Json will serialize the results based on the configured serializer. <code>JsonRequestBehavior</code> is no longer part of the API.<pre style="background-color:#2b2c2f;">
+<span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">JsonResult </span><span style="color:#6699cc;">GetProduct</span><span style="color:#5fb3b3;">(){
+</span><span style="color:#cccece;">        </span><span style="color:#c594c5;">object </span><span style="color:#cccece;">productObject </span><span style="color:#5fb3b3;">= new { </span><span style="color:#cccece;">@ProductId </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">1 </span><span style="color:#5fb3b3;">};
+</span><span style="color:#cccece;">        
+</span><span style="color:#cccece;">        </span><span style="color:#5f6364;">// JsonRequestBehavior is obsolete
+</span><span style="color:#cccece;">        </span><span style="color:#5f6364;">// return Json(productObject, JsonRequestBehavior.AllowGet);
+</span><span style="color:#cccece;">        </span><span style="color:#c594c5;">return </span><span style="color:#6699cc;">Json</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">productObject</span><span style="color:#5fb3b3;">);
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li>SerializerSettings parameter 
+<ul>
+<li>When using System.Text.Json, this should be an instance of System.Text.Json.JsonSerializerOptions.</li>
+<li>When using Newtonsoft.Json, this should be an instance of JsonSerializerSettings.</li>
+<li>To use Newtonsoft.Json
+<ul>
+<li>Add Nuget Package: <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson">Microsoft.AspNetCore.Mvc.NewtonsoftJson</a></li>
+<li>Update Startup.cs<pre style="background-color:#2b2c2f;">
+<span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddControllersWithViews</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">AddNewtonsoftJson</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">    </span><span style="color:#5f6364;">// If needed to preserve casing based on model Properties.
+</span><span style="color:#6699cc;">    </span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt; </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseMemberCasing</span><span style="color:#5fb3b3;">())
+</span><span style="color:#cccece;">)</span><span style="color:#5fb3b3;">;
+</span></pre></li>
+<li>New code: <code>return Json(dataObj, new JsonSerializerSettings { Formatting = Formatting.Indented });</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>FileUpload API Change
+<ul>
+<li><code>Request.Form.Files</code> instead of <code>Request.Files</code></li>
+<li><code>IFormFile.Length</code> instead of <code>ContentLength</code> to get the uploaded file length in bytes.</li>
+<li><code>SaveAs(path)</code> is obsolete. Instead use:<pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">using </span><span style="color:#cccece;">var writeStream </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">new FileStream(targetPath, FileMode</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">CreateNew)</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">postedFile</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">CopyTo</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">writeStream</span><span style="color:#5fb3b3;">);
+</span></pre></li>
+</ul>
+</li>
+<li>FileResult API Change - Use <code>FileResult</code> in place of the manual coding of returning a file.<pre style="background-color:#2b2c2f;">
+<span style="color:#5f6364;">// Legacy code
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">ClearContent</span><span style="color:#5fb3b3;">();
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Buffer </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddHeader</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">content-disposition</span><span style="color:#5fb3b3;">&quot;, &quot;</span><span style="color:#99c794;">attachment; filename=</span><span style="color:#5fb3b3;">&quot; + </span><span style="color:#cccece;">fileName</span><span style="color:#5fb3b3;">);
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ContentType </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">application/ms-excel</span><span style="color:#5fb3b3;">&quot;;
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Charset </span><span style="color:#5fb3b3;">= &quot;&quot;;
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">BinaryWrite</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">data</span><span style="color:#5fb3b3;">);
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">Flush</span><span style="color:#5fb3b3;">();
+</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">End</span><span style="color:#5fb3b3;">();
+
+</span><span style="color:#5f6364;">// replace above with
+</span><span style="color:#c594c5;">return </span><span style="color:#5fb3b3;">new </span><span style="color:#fac863;">FileContentResult</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">data</span><span style="color:#5fb3b3;">, &quot;</span><span style="color:#99c794;">application/ms-excel</span><span style="color:#5fb3b3;">&quot;) { 
+</span><span style="color:#cccece;">    FileDownloadName </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">fileName </span><span style="color:#5fb3b3;">};
+</span></pre></li>
+<li>JavaScript Ajax success data already in deserialized to JSON notation. No need for the following step <code>JSON.parse(response)</code>.
+e.g. JS ajax call to controller method with JsonResult<pre style="background-color:#2b2c2f;">
+<span style="color:#5fb3b3;">$.</span><span style="color:#6699cc;">ajax</span><span style="color:#5fb3b3;">({
+</span><span style="color:#6699cc;">    url</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">/Controller/Method</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#6699cc;">    contentType</span><span style="color:#5fb3b3;">: &#39;</span><span style="color:#99c794;">application/json; charset=utf-8</span><span style="color:#5fb3b3;">&#39;,
+</span><span style="color:#6699cc;">    type</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">GET</span><span style="color:#5fb3b3;">&quot;,
+</span><span style="color:#6699cc;">    headers</span><span style="color:#5fb3b3;">: {
+</span><span style="color:#6699cc;">        Accept</span><span style="color:#5fb3b3;">: &quot;</span><span style="color:#99c794;">application/json</span><span style="color:#5fb3b3;">&quot;
+</span><span style="color:#6699cc;">    </span><span style="color:#5fb3b3;">},
+</span><span style="color:#6699cc;">    success</span><span style="color:#5fb3b3;">: </span><span style="color:#c594c5;">function </span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">response</span><span style="color:#5fb3b3;">) {
+</span><span style="color:#6699cc;">        </span><span style="color:#5f6364;">// not needed as response is deserialized
+</span><span style="color:#6699cc;">        </span><span style="color:#5f6364;">// result = JSON.parse(response);
+</span><span style="color:#6699cc;">    </span><span style="color:#5fb3b3;">}})
+</span></pre></li>
+<li>Session Management
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1">Session and state management in ASP.NET Core</a> is straight forward. Follow instructions in this link.</li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/compatibility/replacing-machinekey?view=aspnetcore-3.1">Replace the ASP.NET machineKey in ASP.NET Core</a></li>
+</ul>
+</li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/performance/caching/middleware?view=aspnetcore-3.1">Response Caching Middleware in ASP.NET Core</a> 
+<ul>
+<li>For example, creating a No Cache ActionFilter.<pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">public class </span><span style="color:#fac863;">NoCacheAttribute </span><span style="color:#5fb3b3;">: </span><span style="color:#99c794;">ActionFilterAttribute
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public override void </span><span style="color:#6699cc;">OnResultExecuting</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">ResultExecutingContext </span><span style="color:#f99157;">filterContext</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">filterContext </span><span style="color:#5fb3b3;">== </span><span style="color:#f99157;">null</span><span style="color:#5fb3b3;">) </span><span style="color:#c594c5;">throw </span><span style="color:#5fb3b3;">new </span><span style="color:#fac863;">ArgumentNullException</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">filterContext</span><span style="color:#5fb3b3;">&quot;);
+
+</span><span style="color:#cccece;">        filterContext</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">HttpContext</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">GetTypedHeaders</span><span style="color:#5fb3b3;">().</span><span style="color:#cccece;">CacheControl </span><span style="color:#5fb3b3;">=
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">new </span><span style="color:#fac863;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Net</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Http</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Headers</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">CacheControlHeaderValue</span><span style="color:#5fb3b3;">()
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">                Public </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">,
+</span><span style="color:#cccece;">                MaxAge </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">TimeSpan</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">FromDays</span><span style="color:#5fb3b3;">(-</span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">),
+</span><span style="color:#cccece;">                MustRevalidate </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">,
+</span><span style="color:#cccece;">                NoCache </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">,
+</span><span style="color:#cccece;">                NoStore </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true
+</span><span style="color:#cccece;">            </span><span style="color:#5fb3b3;">};
+</span><span style="color:#cccece;">        filterContext</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">HttpContext</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Response</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Headers</span><span style="color:#5fb3b3;">[</span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Net</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Http</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Headers</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">HeaderNames</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Expires</span><span style="color:#5fb3b3;">] = &quot;</span><span style="color:#99c794;">-1</span><span style="color:#5fb3b3;">&quot;;
+
+</span><span style="color:#cccece;">        </span><span style="color:#ec5f67;">base</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">OnResultExecuting</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">filterContext</span><span style="color:#5fb3b3;">);
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+<li>Can be implement by adding it as so.<pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">public void </span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IServiceCollection </span><span style="color:#f99157;">services</span><span style="color:#5fb3b3;">)
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddControllersWithViews</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt; {
+</span><span style="color:#6699cc;">        </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Filters</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">Add</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">Filters</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">NoCacheAttribute</span><span style="color:#5fb3b3;">&gt;();
+</span><span style="color:#6699cc;">    </span><span style="color:#5fb3b3;">});
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+</ul>
+</li>
+</ul>
+<h1 id="entity-framework-changes">Entity Framework Changes</h1>
+<p>EF EDMX designer is not available in the .NET Core tooling for Visual Studio as of this writing. Because app settings has been ported to <code>appSetting.json</code>, EF <code>DbContext</code> constructor will fail looking for the ConnectionString in <code>web.config</code>. The following are two options to port EF to .NET Core. </p>
+<ul>
+<li><strong>Option 1</strong> The first and least preferred is to use DI and new up the DBContext and update the code to support reading the ConnectionString from appSettings. </li>
+<li><strong>Option 2</strong> Convert to EF Core. The good news is that EF Core does have feature parity with EF, <a href="https://docs.microsoft.com/en-us/ef/efcore-and-ef6/">see the comparison</a>. The conversion should be seamless and straight forward. You can read more <a href="https://docs.microsoft.com/en-us/ef/efcore-and-ef6/porting/port-edmx">here</a>. To port EF EDMX to EF Core, follow these steps.
+<ul>
+<li>Add EF Core Nugets:
+<ul>
+<li>Microsoft.Data.SqlClient</li>
+<li>Microsoft.EntityFrameworkCore</li>
+<li>Microsoft.EntityFrameworkCore.Design</li>
+<li>Microsoft.EntityFrameworkCore.Relational</li>
+<li>Microsoft.EntityFrameworkCore.SqlServer</li>
+<li>Microsoft.EntityFrameworkCore.Tools</li>
+</ul>
+</li>
+<li>Run the <code>Scaffold-DbContext</code> command<pre style="background-color:#2b2c2f;">
+<span style="color:#cccece;">Scaffold</span><span style="color:#5fb3b3;">-</span><span style="color:#cccece;">DbContext </span><span style="color:#5fb3b3;">&quot;</span><span style="color:#99c794;">Server=;Database=;User ID=; Password=; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;</span><span style="color:#5fb3b3;">&quot;</span><span style="color:#cccece;"> Microsoft.EntityFrameworkCore.SqlServer </span><span style="color:#5fb3b3;">-</span><span style="color:#cccece;">ContextDir </span><span style="color:#5fb3b3;">&lt;</span><span style="color:#cccece;">ContextDir</span><span style="color:#5fb3b3;">&gt; -</span><span style="color:#cccece;">Context </span><span style="color:#5fb3b3;">&lt;</span><span style="color:#cccece;">ContextName</span><span style="color:#5fb3b3;">&gt;
+</span></pre></li>
+<li>Inconsistent coding practices could cause pain to reconcile, e.g. class and member casing are not consistent with the database, singular vs plural naming. This step could be time consuming to clean up.</li>
+</ul>
+</li>
+<li><strong>Configure Services</strong><pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Data</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">SqlClient</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">EntityFrameworkCore</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DependencyInjection</span><span style="color:#5fb3b3;">;
+
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Startup
+</span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">Startup</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IConfiguration </span><span style="color:#f99157;">configuration</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        Configuration </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">configuration</span><span style="color:#5fb3b3;">;
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">IConfiguration </span><span style="color:#cccece;">Configuration </span><span style="color:#5fb3b3;">{ </span><span style="color:#c594c5;">get</span><span style="color:#5fb3b3;">; }
+
+</span><span style="color:#cccece;">    </span><span style="color:#5f6364;">// This method gets called by the runtime. Use this method to add services to the container.
+</span><span style="color:#cccece;">    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IServiceCollection </span><span style="color:#f99157;">services</span><span style="color:#5fb3b3;">)
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">{
+</span><span style="color:#cccece;">        services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddDbContext</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">TContext</span><span style="color:#5fb3b3;">&gt;(</span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt; 
+</span><span style="color:#6699cc;">            </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseSqlServer</span><span style="color:#5fb3b3;">(
+</span><span style="color:#6699cc;">                </span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">GetConnectionString</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">ConnectionStringKey</span><span style="color:#5fb3b3;">&quot;)));
+</span><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">}
+</span><span style="color:#5fb3b3;">}
+</span></pre></li>
+</ul>
+<h1 id="other-useful-links">Other Useful Links</h1>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/migration/proper-to-2x/?view=aspnetcore-3.1">Migrate from ASP.NET to ASP.NET Core</a></li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1">Dependency injection in ASP.NET Core</a></li>
+<li><a href="https://steeltoe.io/">Steeltoe</a></li>
+</ul>
+
+        </div>
+    </article><!-- /.blog-main -->
+
+</div><!-- /.row -->
+<div class="row py-4">
+  <nav class="offset-md-3 col-md-9 blog-pagination">
+    
+    <a class="btn btn-outline-secondary" href="/blog/dotnet/port-dotnet-unittest-to-netcoreapp-3-1/">Port .NET UnitTest to .Net Core App 3.1</a>
+    
+        
+  </nav>
+</div>
+
+  </main>
+  
+  </div>
+
+  
+  <footer class="blog-footer">
+    <p>Copyright 2020 by Wael Rabadi. All Rights Reserved.</p>
+    <p><a href="#">Back to top</a></p>
+  </footer>
+  
+
+  <script src="/vendor/jquery.slim.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/font-awesome/js/all.min.js"></script>
+
+  
+  
+  <script type="text/javascript" src="/js/theme.js"></script>
+</body>
+
+</html>

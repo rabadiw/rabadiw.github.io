@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>@rabadiw</title>
+        <link>/</link>
+        <description>A blog site covering software engineering topics, e.g. cloud native, microservices, automatation.</description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="/tags/webapp/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Fri, 08 May 2020 00:00:00 +0000</lastBuildDate>
+        
+            <item>
+                <title>Port .NET WebApp to .Net Core App 3.1</title>
+                <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+                <link>/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/</link>
+                <guid>/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/</guid>
+                <description>&lt;p&gt;Microsoft .NET Framework was first released on &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;.NET_Framework_version_history&quot;&gt;February 12, 2002&lt;&#x2F;a&gt; and has since been a very active set of languages and framework. Although it is very hard to determine the number of project across the globe, we can guesstimate the number, what is considered legacy apps, to be in the 10s of thousands. By legacy, I mean projects written pre &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;.NET_Core&quot;&gt;.NET Core&lt;&#x2F;a&gt; - a modern compiler and framework redesigned to run on cloud native environment. Moving from legacy to modern compiler and framework does not have to mean porting your app to a new language and rewriting decaded of business logic. 😉&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A blog site covering software engineering topics, e.g. cloud native, microservices, automatation.">
+  <meta name="author" content="Wael Rabadi">
+  <title>Port .NET UnitTest to .Net Core App 3.1 | @rabadiw</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/font-awesome/css/all.min.css">
+  <!-- Custom styles for this template -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/blog.css">
+  
+</head>
+
+<body>  
+  
+  <header class="sticky-top blog-header shadow-sm py-3">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand blog-header-logo text-dark" href="/">@rabadiw</a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse text-center" id="navigation">
+          
+          <div class="d-lg-none d-block">
+            
+            <a href="https:&#x2F;&#x2F;github.com&#x2F;rabadiw">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;twitter.com&#x2F;rabadiw">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;waelrabadi">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+          </div>
+        </div>
+        
+        <div class="d-lg-flex d-none">
+          
+          <a href="https:&#x2F;&#x2F;github.com&#x2F;rabadiw">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+          <a href="https:&#x2F;&#x2F;twitter.com&#x2F;rabadiw">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+          <a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;waelrabadi">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+
+           
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+
+  
+
+  <div class="container">
+  
+  
+  <main role="main">
+    
+
+<div class="row">    
+    <aside class="col-md-3 blog-sidebar pt-4 pr-4 border-right border-default">
+        
+        <nav role="navigation">
+        
+        
+        
+            
+            
+            <div class="p-3">
+            <h3 class="font-italic border-bottom">.NET</h3>
+
+            
+            <ol class="mb-0">
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;add-swagger-to-netcoreapp-3-1&#x2F;">
+                        
+                        Add Swagger &amp; API Explorer to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-console-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET Console App to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li class="my-2 active">
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-unittest-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET UnitTest to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-webapp-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET WebApp to .Net Core App 3.1
+                    </a>
+                </li>
+                
+            </ol>
+            
+            </div>
+        
+        
+        </nav>
+    </aside><!-- /.blog-sidebar -->
+
+    <article class="col-md-9 blog-main px-lg-5 px-4 pt-4">
+        <nav class="navbar navbar-expand navbar-light bg-transparent border-bottom px-0">
+            
+            <div class="dropdown" title="TOC" style="margin-left: -1rem;">
+                <!--Trigger-->
+                <a class="btn-floating btn-lg" type="button" id="tocMenu" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>          
+                <!--Menu-->
+                <div class="dropdown-menu dropdown-primary">
+                    
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-unittest-to-netcoreapp-3-1/#project">Project</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/port-dotnet-unittest-to-netcoreapp-3-1/#wire-up-with-di">Wire up with DI</a>
+                    
+                </div>
+            </div>
+            
+            <p class="navbar-brand blog-post-title font-weight-medium text-dark">Port .NET UnitTest to .Net Core App 3.1</p>
+        </nav>
+        <div class="article-header px-lg-4 pt-4">
+                        
+            <h3 id="project">Project</h3>
+<p><strong>Keep current project in tact.</strong> This is similar in practice as applying the <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler">strangler pattern</a>. Doing so will keep the project as a point of reference. More importantly, it keeps the compiler happy and allows for porting each project independently. When selecting the project, always start with the core project (i.e. one with the least to no dependency).</p>
+<p><strong>Preserve project name and namespace.</strong> When creating the project, keep the project name and namespace the same. Do choose a new folder to create the project in. This could be as simple as naming the folder <code>port</code>. If you choose to create a Visual Studio solution folder, make sure it does not end up in the namespace.</p>
+<p><strong>Create an equivalent project under the .NET Core template.</strong> For a UnitTest project create the equivalent UnitTest Core project. Doing this step will create an empty project with a .NET Core template. Mainly the <code>csproj</code> XML structure. Keep the same UnitTest framework. A change here would exponentially increase refactoring efforts.</p>
+<h3 id="wire-up-with-di">Wire up with DI</h3>
+<p>The following code is a snapshot for demonstration purpose. The goal is to demonstrate the ability to leverage the startup code to wire up all DI requirements.</p>
+<pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">VisualStudio</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">TestTools</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">UnitTesting</span><span style="color:#5fb3b3;">;
+
+[</span><span style="color:#cccece;">TestClass</span><span style="color:#5fb3b3;">]
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductUnitTest
+</span><span style="color:#5fb3b3;">{
+    </span><span style="color:#fac863;">IHost </span><span style="color:#cccece;">_host</span><span style="color:#5fb3b3;">;
+
+    </span><span style="color:#5f6364;">// Setup
+    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">ProductUnitTest</span><span style="color:#5fb3b3;">()
+    {
+        </span><span style="color:#cccece;">_host </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">Host</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">CreateDefaultBuilder</span><span style="color:#5fb3b3;">()
+            .</span><span style="color:#6699cc;">ConfigureWebHostDefaults</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">webBuilder </span><span style="color:#5fb3b3;">=&gt;
+            {
+                </span><span style="color:#cccece;">webBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseStartup</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">MyProductProject</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Startup</span><span style="color:#5fb3b3;">&gt;();
+            })
+            .</span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">services </span><span style="color:#5fb3b3;">=&gt;
+            {
+                </span><span style="color:#5f6364;">// potentially an in-memory database
+                </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddScoped</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">DbContext</span><span style="color:#5fb3b3;">&gt;(); 
+                </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddScoped</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">ProductController</span><span style="color:#5fb3b3;">&gt;();
+            }).</span><span style="color:#6699cc;">Build</span><span style="color:#5fb3b3;">();        
+    }
+
+    </span><span style="color:#fac863;">controller</span><span style="color:#cccece;"> = </span><span style="color:#99c794;">_host</span><span style="color:#5fb3b3;">.</span><span style="color:#99c794;">Services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">GetService</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">ProductController</span><span style="color:#5fb3b3;">&gt;();
+    [</span><span style="color:#cccece;">TestMethod</span><span style="color:#5fb3b3;">]
+    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">GetProduct_ShouldSucceed</span><span style="color:#5fb3b3;">()
+    {
+        </span><span style="color:#5f6364;">//Arrange
+        </span><span style="color:#c594c5;">var </span><span style="color:#cccece;">controller </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">_host</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">GetService</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">ProductController</span><span style="color:#5fb3b3;">&gt;();
+        </span><span style="color:#c594c5;">var </span><span style="color:#cccece;">productRequest </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">abc123</span><span style="color:#5fb3b3;">&quot;;
+        </span><span style="color:#c594c5;">var </span><span style="color:#cccece;">expectedProductResponse </span><span style="color:#5fb3b3;">= 
+            new </span><span style="color:#fac863;">ProductResponse</span><span style="color:#5fb3b3;">() { 
+                </span><span style="color:#cccece;">Id </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">abc123</span><span style="color:#5fb3b3;">&quot;, 
+                </span><span style="color:#cccece;">Title </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">Product A</span><span style="color:#5fb3b3;">&quot; 
+            };
+        
+        </span><span style="color:#5f6364;">//Act
+        </span><span style="color:#c594c5;">var </span><span style="color:#cccece;">actualProductResponse </span><span style="color:#5fb3b3;">= 
+            (</span><span style="color:#cccece;">controller</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">Get</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">productRequest</span><span style="color:#5fb3b3;">) as </span><span style="color:#fac863;">JsonResult</span><span style="color:#5fb3b3;">)
+            .</span><span style="color:#cccece;">Value </span><span style="color:#5fb3b3;">as </span><span style="color:#fac863;">ProductResponse</span><span style="color:#5fb3b3;">;
+
+        </span><span style="color:#5f6364;">//Assert
+        </span><span style="color:#cccece;">Assert</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">IsTrue</span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">actualProductResponse</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Title </span><span style="color:#5fb3b3;">== </span><span style="color:#cccece;">expectedProductResponse</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Title</span><span style="color:#5fb3b3;">);
+    }
+}
+
+[</span><span style="color:#cccece;">ApiController</span><span style="color:#5fb3b3;">]
+[</span><span style="color:#cccece;">Route</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">api/[controller]</span><span style="color:#5fb3b3;">&quot;)]
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductController </span><span style="color:#5fb3b3;">: </span><span style="color:#99c794;">ControllerBase
+</span><span style="color:#5fb3b3;">{
+    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">ProductController</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">DbContext </span><span style="color:#f99157;">db</span><span style="color:#5fb3b3;">)
+    {
+        ...
+    }
+
+    [</span><span style="color:#cccece;">HttpGet</span><span style="color:#5fb3b3;">]
+    [</span><span style="color:#cccece;">Route</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">{id}</span><span style="color:#5fb3b3;">&quot;)]
+    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">JsonResult </span><span style="color:#6699cc;">Get</span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">string </span><span style="color:#f99157;">id</span><span style="color:#5fb3b3;">)
+    {
+        ...
+    }
+}
+</span></pre>
+        </div>
+    </article><!-- /.blog-main -->
+
+</div><!-- /.row -->
+<div class="row py-4">
+  <nav class="offset-md-3 col-md-9 blog-pagination">
+    
+    <a class="btn btn-outline-secondary" href="/blog/dotnet/port-dotnet-console-to-netcoreapp-3-1/">Port .NET Console App to .Net Core App 3.1</a>
+    
+    
+    <a class="btn btn-outline-primary" href="/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/">Port .NET WebApp to .Net Core App 3.1</a>
+        
+  </nav>
+</div>
+
+  </main>
+  
+  </div>
+
+  
+  <footer class="blog-footer">
+    <p>Copyright 2020 by Wael Rabadi. All Rights Reserved.</p>
+    <p><a href="#">Back to top</a></p>
+  </footer>
+  
+
+  <script src="/vendor/jquery.slim.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/font-awesome/js/all.min.js"></script>
+
+  
+  
+  <script type="text/javascript" src="/js/theme.js"></script>
+</body>
+
+</html>

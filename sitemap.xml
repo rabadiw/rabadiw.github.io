@@ -1,23 +1,129 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://rabadiw.github.io/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://rabadiw.github.io/categories/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://rabadiw.github.io/tags/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+        <url>
+            <loc>/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/about/</loc>
+            
+                <lastmod>2020-05-04</lastmod>
+            
+        </url>
+    
+        <url>
+            <loc>/authors/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/authors/rabadiw/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/dotnet/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/dotnet/add-swagger-to-netcoreapp-3-1/</loc>
+            
+                <lastmod>2020-05-08</lastmod>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/dotnet/page/1/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/dotnet/port-dotnet-console-to-netcoreapp-3-1/</loc>
+            
+                <lastmod>2020-05-08</lastmod>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/dotnet/port-dotnet-unittest-to-netcoreapp-3-1/</loc>
+            
+                <lastmod>2020-05-08</lastmod>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/</loc>
+            
+                <lastmod>2020-05-08</lastmod>
+            
+        </url>
+    
+        <url>
+            <loc>/blog/page/1/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/page/1/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/apiexplorer/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/console/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/net/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/netcoreapp/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/porting/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/swagger/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/unittest/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/webapi/</loc>
+            
+        </url>
+    
+        <url>
+            <loc>/tags/webapp/</loc>
+            
+        </url>
+    
 </urlset>

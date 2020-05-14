@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A blog site covering software engineering topics, e.g. cloud native, microservices, automatation.">
+  <meta name="author" content="Wael Rabadi">
+  <title>Add Swagger &amp; API Explorer to .Net Core App 3.1 | @rabadiw</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/font-awesome/css/all.min.css">
+  <!-- Custom styles for this template -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/blog.css">
+  
+</head>
+
+<body>  
+  
+  <header class="sticky-top blog-header shadow-sm py-3">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand blog-header-logo text-dark" href="/">@rabadiw</a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse text-center" id="navigation">
+          
+          <div class="d-lg-none d-block">
+            
+            <a href="https:&#x2F;&#x2F;github.com&#x2F;rabadiw">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;twitter.com&#x2F;rabadiw">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;waelrabadi">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+                <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            
+          </div>
+        </div>
+        
+        <div class="d-lg-flex d-none">
+          
+          <a href="https:&#x2F;&#x2F;github.com&#x2F;rabadiw">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+          <a href="https:&#x2F;&#x2F;twitter.com&#x2F;rabadiw">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+          <a href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;waelrabadi">
+            <span class="fa-stack fa-lg">
+              <i class="fas fa-circle fa-stack-1x" style="font-size: 2em;"></i>
+              <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          
+
+           
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+
+  
+
+  <div class="container">
+  
+  
+  <main role="main">
+    
+
+<div class="row">    
+    <aside class="col-md-3 blog-sidebar pt-4 pr-4 border-right border-default">
+        
+        <nav role="navigation">
+        
+        
+        
+            
+            
+            <div class="p-3">
+            <h3 class="font-italic border-bottom">.NET</h3>
+
+            
+            <ol class="mb-0">
+                
+                <li class="my-2 active">
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;add-swagger-to-netcoreapp-3-1&#x2F;">
+                        
+                        Add Swagger &amp; API Explorer to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-console-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET Console App to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-unittest-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET UnitTest to .Net Core App 3.1
+                    </a>
+                </li>
+                
+                <li >
+                    <a href="&#x2F;blog&#x2F;dotnet&#x2F;port-dotnet-webapp-to-netcoreapp-3-1&#x2F;">
+                        
+                        Port .NET WebApp to .Net Core App 3.1
+                    </a>
+                </li>
+                
+            </ol>
+            
+            </div>
+        
+        
+        </nav>
+    </aside><!-- /.blog-sidebar -->
+
+    <article class="col-md-9 blog-main px-lg-5 px-4 pt-4">
+        <nav class="navbar navbar-expand navbar-light bg-transparent border-bottom px-0">
+            
+            <div class="dropdown" title="TOC" style="margin-left: -1rem;">
+                <!--Trigger-->
+                <a class="btn-floating btn-lg" type="button" id="tocMenu" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>          
+                <!--Menu-->
+                <div class="dropdown-menu dropdown-primary">
+                    
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/add-swagger-to-netcoreapp-3-1/#nugets">Nugets</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/add-swagger-to-netcoreapp-3-1/#setting-up-swagger-and-api-explorer">Setting up Swagger and API Explorer</a>
+                    
+                    <a class="dropdown-item" href="/blog/dotnet/add-swagger-to-netcoreapp-3-1/#apicontroller">ApiController</a>
+                    
+                </div>
+            </div>
+            
+            <p class="navbar-brand blog-post-title font-weight-medium text-dark">Add Swagger & API Explorer to .Net Core App 3.1</p>
+        </nav>
+        <div class="article-header px-lg-4 pt-4">
+                        
+            <h2 id="nugets">Nugets</h2>
+<ul>
+<li>Microsoft.AspNetCore.Mvc.NewtonsoftJson</li>
+<li>Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer</li>
+<li>Microsoft.Data.SqlClient</li>
+<li>Microsoft.Extensions.Http</li>
+<li>Newtonsoft.Json</li>
+<li>Swashbuckle.AspNetCore</li>
+</ul>
+<h2 id="setting-up-swagger-and-api-explorer">Setting up Swagger and API Explorer</h2>
+<pre style="background-color:#2b2c2f;">
+<span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Builder</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Hosting</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Mvc</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ApiExplorer</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DependencyInjection</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Hosting</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Options</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Swashbuckle</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">SwaggerGen</span><span style="color:#5fb3b3;">;
+</span><span style="color:#c594c5;">using </span><span style="color:#cccece;">System</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Net</span><span style="color:#5fb3b3;">;
+
+</span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">Startup
+</span><span style="color:#5fb3b3;">{
+    </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">Startup</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IConfiguration </span><span style="color:#f99157;">configuration</span><span style="color:#5fb3b3;">)
+    {
+        </span><span style="color:#cccece;">Configuration </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">configuration</span><span style="color:#5fb3b3;">;
+    }
+
+    </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">IConfiguration </span><span style="color:#cccece;">Configuration </span><span style="color:#5fb3b3;">{ </span><span style="color:#c594c5;">get</span><span style="color:#5fb3b3;">; }
+
+    </span><span style="color:#5f6364;">// This method gets called by the runtime. Use this method to add services to the container.
+    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IServiceCollection </span><span style="color:#f99157;">services</span><span style="color:#5fb3b3;">)
+    {
+        </span><span style="color:#5f6364;">// AddNewtonsoftJson is optional
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddControllers</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">AddNewtonsoftJson</span><span style="color:#5fb3b3;">();
+
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddApiVersioning</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt;
+        {
+            </span><span style="color:#5f6364;">// reporting api versions will return the headers &quot;api-supported-versions&quot; and &quot;api-deprecated-versions&quot;
+            </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ReportApiVersions </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">false</span><span style="color:#5fb3b3;">;
+            </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AssumeDefaultVersionWhenUnspecified </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
+            </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DefaultApiVersion </span><span style="color:#5fb3b3;">= new </span><span style="color:#fac863;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Mvc</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ApiVersion</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">);
+        });
+
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddVersionedApiExplorer</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt;
+        {
+            </span><span style="color:#5f6364;">// add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+            // note: the specified format code will format the version as &quot;&#39;v&#39;major[.minor][-status]&quot;
+            </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">GroupNameFormat </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">&#39;v&#39;VVV</span><span style="color:#5fb3b3;">&quot;;
+
+            </span><span style="color:#5f6364;">// note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+            // can also be used to control the format of the API version in route templates
+            </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">SubstituteApiVersionInUrl </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
+        });
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddTransient</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">IConfigureOptions</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">SwaggerGenOptions</span><span style="color:#5fb3b3;">&gt;, </span><span style="color:#fac863;">ConfigureSwaggerOptions</span><span style="color:#5fb3b3;">&gt;();
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddSwaggerGen</span><span style="color:#5fb3b3;">();
+    }
+
+    </span><span style="color:#5f6364;">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    </span><span style="color:#c594c5;">public void </span><span style="color:#6699cc;">Configure</span><span style="color:#5fb3b3;">(</span><span style="color:#fac863;">IApplicationBuilder </span><span style="color:#f99157;">app</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">IWebHostEnvironment </span><span style="color:#f99157;">env</span><span style="color:#5fb3b3;">, </span><span style="color:#fac863;">IApiVersionDescriptionProvider </span><span style="color:#f99157;">provider</span><span style="color:#5fb3b3;">)
+    {
+        </span><span style="color:#cccece;">ServicePointManager</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Expect100Continue </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
+        </span><span style="color:#cccece;">ServicePointManager</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">SecurityProtocol </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">SecurityProtocolType</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Tls13</span><span style="color:#5fb3b3;">;
+        </span><span style="color:#cccece;">ServicePointManager</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DefaultConnectionLimit </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">24</span><span style="color:#5fb3b3;">;
+
+        </span><span style="color:#c594c5;">if </span><span style="color:#5fb3b3;">(</span><span style="color:#cccece;">env</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">IsDevelopment</span><span style="color:#5fb3b3;">())
+        {
+            </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseDeveloperExceptionPage</span><span style="color:#5fb3b3;">();
+        }
+
+        </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseSwagger</span><span style="color:#5fb3b3;">();
+        </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseSwaggerUI</span><span style="color:#5fb3b3;">(
+            </span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt;
+            {
+                </span><span style="color:#c594c5;">foreach </span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">var </span><span style="color:#cccece;">description </span><span style="color:#c594c5;">in </span><span style="color:#cccece;">provider</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ApiVersionDescriptions</span><span style="color:#5fb3b3;">)
+                {
+                    </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">SwaggerEndpoint</span><span style="color:#5fb3b3;">(
+                        $&quot;</span><span style="color:#99c794;">/swagger/</span><span style="color:#5fb3b3;">{</span><span style="color:#cccece;">description</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">GroupName</span><span style="color:#5fb3b3;">}</span><span style="color:#99c794;">/swagger.json</span><span style="color:#5fb3b3;">&quot;,
+                        </span><span style="color:#cccece;">description</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">GroupName</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">ToUpperInvariant</span><span style="color:#5fb3b3;">());
+                }
+            });
+
+        </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseRouting</span><span style="color:#5fb3b3;">();
+
+        </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseEndpoints</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">endpoints </span><span style="color:#5fb3b3;">=&gt;
+        {
+            </span><span style="color:#cccece;">endpoints</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">MapControllers</span><span style="color:#5fb3b3;">();
+        });
+    }
+}
+</span></pre><h2 id="apicontroller">ApiController</h2>
+<pre style="background-color:#2b2c2f;">
+<span style="color:#cccece;">    </span><span style="color:#5fb3b3;">[</span><span style="color:#cccece;">ApiController</span><span style="color:#5fb3b3;">]
+    [</span><span style="color:#cccece;">Route</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">api/[controller]</span><span style="color:#5fb3b3;">&quot;)]
+    </span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductController </span><span style="color:#5fb3b3;">: </span><span style="color:#99c794;">ControllerBase
+    </span><span style="color:#5fb3b3;">{
+        [</span><span style="color:#cccece;">HttpGet</span><span style="color:#5fb3b3;">]
+        [</span><span style="color:#cccece;">Route</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">{id}</span><span style="color:#5fb3b3;">&quot;)]
+        </span><span style="color:#c594c5;">public </span><span style="color:#fac863;">JsonResult </span><span style="color:#6699cc;">Get</span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">string </span><span style="color:#f99157;">id</span><span style="color:#5fb3b3;">)
+        {
+            ...
+        }
+    }
+</span></pre>
+        </div>
+    </article><!-- /.blog-main -->
+
+</div><!-- /.row -->
+<div class="row py-4">
+  <nav class="offset-md-3 col-md-9 blog-pagination">
+    
+    
+    <a class="btn btn-outline-primary" href="/blog/dotnet/port-dotnet-console-to-netcoreapp-3-1/">Port .NET Console App to .Net Core App 3.1</a>
+        
+  </nav>
+</div>
+
+  </main>
+  
+  </div>
+
+  
+  <footer class="blog-footer">
+    <p>Copyright 2020 by Wael Rabadi. All Rights Reserved.</p>
+    <p><a href="#">Back to top</a></p>
+  </footer>
+  
+
+  <script src="/vendor/jquery.slim.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/font-awesome/js/all.min.js"></script>
+
+  
+  
+  <script type="text/javascript" src="/js/theme.js"></script>
+</body>
+
+</html>

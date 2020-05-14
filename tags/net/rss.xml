@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>@rabadiw</title>
+        <link>/</link>
+        <description>A blog site covering software engineering topics, e.g. cloud native, microservices, automatation.</description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="/tags/net/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Fri, 08 May 2020 00:00:00 +0000</lastBuildDate>
+        
+            <item>
+                <title>Add Swagger &amp; API Explorer to .Net Core App 3.1</title>
+                <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+                <link>/blog/dotnet/add-swagger-to-netcoreapp-3-1/</link>
+                <guid>/blog/dotnet/add-swagger-to-netcoreapp-3-1/</guid>
+                <description>&lt;h2 id=&quot;nugets&quot;&gt;Nugets&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Microsoft.AspNetCore.Mvc.NewtonsoftJson&lt;&#x2F;li&gt;
+&lt;li&gt;Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer&lt;&#x2F;li&gt;
+&lt;li&gt;Microsoft.Data.SqlClient&lt;&#x2F;li&gt;
+&lt;li&gt;Microsoft.Extensions.Http&lt;&#x2F;li&gt;
+&lt;li&gt;Newtonsoft.Json&lt;&#x2F;li&gt;
+&lt;li&gt;Swashbuckle.AspNetCore&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;setting-up-swagger-and-api-explorer&quot;&gt;Setting up Swagger and API Explorer&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#2b2c2f;&quot;&gt;
+&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;AspNetCore&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Builder&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;AspNetCore&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Hosting&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;AspNetCore&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Mvc&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ApiExplorer&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Configuration&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;DependencyInjection&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Hosting&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Swashbuckle&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;AspNetCore&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;SwaggerGen&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;System&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Net&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;Startup
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Startup&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IConfiguration &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;configuration&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Configuration &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;configuration&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+    }
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IConfiguration &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Configuration &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;get&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;; }
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; This method gets called by the runtime. Use this method to add services to the container.
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ConfigureServices&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IServiceCollection &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; AddNewtonsoftJson is optional
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddControllers&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddNewtonsoftJson&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddApiVersioning&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;options &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; reporting api versions will return the headers &amp;quot;api-supported-versions&amp;quot; and &amp;quot;api-deprecated-versions&amp;quot;
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ReportApiVersions &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;AssumeDefaultVersionWhenUnspecified &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;DefaultApiVersion &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= new &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;AspNetCore&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;Mvc&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ApiVersion&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;);
+        });
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddVersionedApiExplorer&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;options &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+            &#x2F;&#x2F; note: the specified format code will format the version as &amp;quot;&amp;#39;v&amp;#39;major[.minor][-status]&amp;quot;
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;GroupNameFormat &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;&amp;#39;v&amp;#39;VVV&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;;
+
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+            &#x2F;&#x2F; can also be used to control the format of the API version in route templates
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;SubstituteApiVersionInUrl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+        });
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddTransient&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IConfigureOptions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;SwaggerGenOptions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ConfigureSwaggerOptions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddSwaggerGen&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+    }
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Configure&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IApplicationBuilder &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IWebHostEnvironment &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IApiVersionDescriptionProvider &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;provider&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ServicePointManager&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Expect100Continue &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ServicePointManager&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;SecurityProtocol &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;SecurityProtocolType&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Tls13&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ServicePointManager&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;DefaultConnectionLimit &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;24&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;env&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;IsDevelopment&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;())
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;UseDeveloperExceptionPage&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+        }
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;UseSwagger&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;UseSwaggerUI&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;options &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+            {
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;foreach &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;description &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;provider&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ApiVersionDescriptions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+                {
+                    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;SwaggerEndpoint&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(
+                        $&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;&#x2F;swagger&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;description&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;GroupName&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;&#x2F;swagger.json&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;,
+                        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;description&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;GroupName&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ToUpperInvariant&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;());
+                }
+            });
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;UseRouting&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;UseEndpoints&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;endpoints &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;endpoints&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;MapControllers&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+        });
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;apicontroller&quot;&gt;ApiController&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#2b2c2f;&quot;&gt;
+&lt;span style=&quot;color:#cccece;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ApiController&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;]
+    [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Route&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;api&#x2F;[controller]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;)]
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductController &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;ControllerBase
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+        [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;HttpGet&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;]
+        [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Route&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;{id}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;)]
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;JsonResult &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Get&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;string &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;id&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+        {
+            ...
+        }
+    }
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Port .NET Console App to .Net Core App 3.1</title>
+                <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+                <link>/blog/dotnet/port-dotnet-console-to-netcoreapp-3-1/</link>
+                <guid>/blog/dotnet/port-dotnet-console-to-netcoreapp-3-1/</guid>
+                <description>&lt;h3 id=&quot;project&quot;&gt;Project&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Keep current project in tact.&lt;&#x2F;strong&gt; This is similar in practice as applying the &lt;a href=&quot;https:&#x2F;&#x2F;docs.microsoft.com&#x2F;en-us&#x2F;azure&#x2F;architecture&#x2F;patterns&#x2F;strangler&quot;&gt;strangler pattern&lt;&#x2F;a&gt;. Doing so will keep the project as a point of reference. More importantly, it keeps the compiler happy and allows for porting each project independently. When selecting the project, always start with the core project (i.e. one with the least to no dependency).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Preserve project name and namespace.&lt;&#x2F;strong&gt; When creating the project, keep the project name and namespace the same. Do choose a new folder to create the project in. This could be as simple as naming the folder &lt;code&gt;port&lt;&#x2F;code&gt;. If you choose to create a Visual Studio solution folder, make sure it does not end up in the namespace.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Create an equivalent project under the .NET Core template.&lt;&#x2F;strong&gt; For a Console project create the equivalent Console Core project. Doing this step will create an empty project with a .NET Core template. Mainly the &lt;code&gt;csproj&lt;&#x2F;code&gt; XML structure.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wire-up-with-di&quot;&gt;Wire up with DI&lt;&#x2F;h3&gt;
+&lt;pre style=&quot;background-color:#2b2c2f;&quot;&gt;
+&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Configuration&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;DependencyInjection&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Extensions&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Hosting&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;System&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;IO&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;Program
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;protected static &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IHost &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;static void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Main&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;[] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;CreateHostBuilder&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;foreach &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;string &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;arg &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;switch &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;arg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+            {
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;case &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;Product&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;:
+                    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;GetService&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductClass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Run&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+                    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;case &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;Price&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;:
+                    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;GetService&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;PriceClass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;().&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Run&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();
+                    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+            }
+        }
+    }
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public static &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IHostBuilder &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;CreateHostBuilder&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;[] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;=&amp;gt;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;CreateDefaultBuilder&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ConfigureHostConfiguration&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;configHost &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;configHost&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;SetBasePath&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Directory&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;GetCurrentDirectory&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;());
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;configHost&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddJsonFile&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;appsettings.json&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;optional&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;);
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;configHost&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddEnvironmentVariables&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;prefix&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;MyApp_&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;);
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;configHost&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddCommandLine&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;);
+
+        }).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ConfigureServices&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;services &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+        {
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddScoped&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductClass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddScoped&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;PriceClass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+        });
+}
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductClass 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Run&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;()
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; Add logic here.
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;}
+}
+
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;PriceClass 
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Run&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;()
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; Add logic here.
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;}
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Port .NET UnitTest to .Net Core App 3.1</title>
+                <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+                <link>/blog/dotnet/port-dotnet-unittest-to-netcoreapp-3-1/</link>
+                <guid>/blog/dotnet/port-dotnet-unittest-to-netcoreapp-3-1/</guid>
+                <description>&lt;h3 id=&quot;project&quot;&gt;Project&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Keep current project in tact.&lt;&#x2F;strong&gt; This is similar in practice as applying the &lt;a href=&quot;https:&#x2F;&#x2F;docs.microsoft.com&#x2F;en-us&#x2F;azure&#x2F;architecture&#x2F;patterns&#x2F;strangler&quot;&gt;strangler pattern&lt;&#x2F;a&gt;. Doing so will keep the project as a point of reference. More importantly, it keeps the compiler happy and allows for porting each project independently. When selecting the project, always start with the core project (i.e. one with the least to no dependency).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Preserve project name and namespace.&lt;&#x2F;strong&gt; When creating the project, keep the project name and namespace the same. Do choose a new folder to create the project in. This could be as simple as naming the folder &lt;code&gt;port&lt;&#x2F;code&gt;. If you choose to create a Visual Studio solution folder, make sure it does not end up in the namespace.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Create an equivalent project under the .NET Core template.&lt;&#x2F;strong&gt; For a UnitTest project create the equivalent UnitTest Core project. Doing this step will create an empty project with a .NET Core template. Mainly the &lt;code&gt;csproj&lt;&#x2F;code&gt; XML structure. Keep the same UnitTest framework. A change here would exponentially increase refactoring efforts.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wire-up-with-di&quot;&gt;Wire up with DI&lt;&#x2F;h3&gt;
+&lt;p&gt;The following code is a snapshot for demonstration purpose. The goal is to demonstrate the ability to leverage the startup code to wire up all DI requirements.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b2c2f;&quot;&gt;
+&lt;span style=&quot;color:#c594c5;&quot;&gt;using &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;VisualStudio&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;TestTools&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;UnitTesting&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;TestClass&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductUnitTest
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;IHost &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; Setup
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ProductUnitTest&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;()
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;CreateDefaultBuilder&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;()
+            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ConfigureWebHostDefaults&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;webBuilder &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+            {
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;webBuilder&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;UseStartup&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;MyProductProject&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;Startup&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+            })
+            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ConfigureServices&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;services &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;=&amp;gt;
+            {
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F; potentially an in-memory database
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddScoped&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;DbContext&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;(); 
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;AddScoped&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductController&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+            }).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Build&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;();        
+    }
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;controller&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt; = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;_host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;Services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;GetService&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductController&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+    [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;TestMethod&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;]
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;GetProduct_ShouldSucceed&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;()
+    {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F;Arrange
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;controller &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;_host&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Services&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;GetService&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductController&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;gt;();
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;productRequest &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;abc123&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;expectedProductResponse &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= 
+            new &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductResponse&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;() { 
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Id &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;abc123&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;, 
+                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Title &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;Product A&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot; 
+            };
+        
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F;Act
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;actualProductResponse &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;= 
+            (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;controller&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Get&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;productRequest&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;) as &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;JsonResult&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Value &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductResponse&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;;
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5f6364;&quot;&gt;&#x2F;&#x2F;Assert
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Assert&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;IsTrue&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;actualProductResponse&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Title &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;expectedProductResponse&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Title&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;);
+    }
+}
+
+[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;ApiController&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;]
+[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Route&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;api&#x2F;[controller]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public class &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;ProductController &lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;ControllerBase
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;ProductController&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;DbContext &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;db&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+    {
+        ...
+    }
+
+    [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;HttpGet&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;]
+    [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccece;&quot;&gt;Route&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#99c794;&quot;&gt;{id}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;&amp;quot;)]
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;public &lt;&#x2F;span&gt;&lt;span style=&quot;color:#fac863;&quot;&gt;JsonResult &lt;&#x2F;span&gt;&lt;span style=&quot;color:#6699cc;&quot;&gt;Get&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c594c5;&quot;&gt;string &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f99157;&quot;&gt;id&lt;&#x2F;span&gt;&lt;span style=&quot;color:#5fb3b3;&quot;&gt;)
+    {
+        ...
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Port .NET WebApp to .Net Core App 3.1</title>
+                <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
+                <link>/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/</link>
+                <guid>/blog/dotnet/port-dotnet-webapp-to-netcoreapp-3-1/</guid>
+                <description>&lt;p&gt;Microsoft .NET Framework was first released on &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;.NET_Framework_version_history&quot;&gt;February 12, 2002&lt;&#x2F;a&gt; and has since been a very active set of languages and framework. Although it is very hard to determine the number of project across the globe, we can guesstimate the number, what is considered legacy apps, to be in the 10s of thousands. By legacy, I mean projects written pre &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;.NET_Core&quot;&gt;.NET Core&lt;&#x2F;a&gt; - a modern compiler and framework redesigned to run on cloud native environment. Moving from legacy to modern compiler and framework does not have to mean porting your app to a new language and rewriting decaded of business logic. 😉&lt;&#x2F;p&gt;
+</description>
+            </item>
+        
+    </channel>
+</rss>
