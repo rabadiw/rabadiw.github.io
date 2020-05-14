@@ -3,7 +3,7 @@
     <channel>
         <title>@rabadiw</title>
         <link>/</link>
-        <description>A blog site covering software engineering topics, e.g. cloud native, microservices, automatation.</description>
+        <description>A blog site covering software engineering topics, e.g. cloud native, micro services, automation.</description>
         <generator>Zola</generator>
         <language>en</language>
         <atom:link href="/tags/console/rss.xml" rel="self" type="application/rss+xml"/>
