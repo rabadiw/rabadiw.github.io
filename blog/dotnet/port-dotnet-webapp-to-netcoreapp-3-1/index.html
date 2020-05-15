@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="/vendor/font-awesome/css/all.min.css">
   <!-- Custom styles for this template -->
   <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> -->
-  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="stylesheet" href="/css/site.css">
   
+<link rel="stylesheet" href="/css/blog.css"> 
+
 </head>
 
 <body>  
@@ -228,8 +230,25 @@
 <li><strong>Bug Fixes Branch</strong>. If needed, continue code fixes on a different branch</li>
 </ul>
 <h1 id="what-will-we-be-porting">What will we be porting?</h1>
-<p>The focus of the remaining of this article is a port of an app from Framework ASP.NET, Web API, Entity Framework, Tests and Console to .NET Core App 3.1. The project was made up of 4 project in a single solution. It took roughly 4 days to port from .NET Framework to .NET Core. </p>
-<p>The process is broken down into areas. Each area will discuss points on interest and learnings.</p>
+<p>The focus of the remaining of this article is a port of an app from Framework ASP.NET, Web API, Entity Framework, Tests and Console to .NET Core App 3.1. The project was made up of 4 project in a single solution. It took roughly four days to port from .NET Framework to .NET Core. Here are the stats on the project from a pre/post port view. </p>
+<ul>
+<li>Pre Port Stats
+<a href="/images/core-port-pre-stats.png"><img src="/images/core-port-pre-stats.png" alt="Pre-Core-Port-Stats" /></a></li>
+<li>Post Port Stats
+<a href="/images/core-port-post-stats.png"><img src="/images/core-port-post-stats.png" alt="Post-Core-Port-Stats" /></a></li>
+</ul>
+<p>Some highlights:</p>
+<ul>
+<li>Lines of code reduced by 1,915 lines, going from 17,296 to 15,381</li>
+<li>Lines of executable code reduced by 638 lines, going from 6,037 to 5,399</li>
+<li>WebApp vs WebApi had different results from <code>maintainability index</code>, <code>cyclomatic complexity</code> and <code>class coupling</code>
+<ul>
+<li>There are many explanations here. For one, <code>DI</code> did have an impact, as well as, running <code>Scaffold-DbContext</code>. </li>
+</ul>
+</li>
+</ul>
+<p><em><strong>The important point to note, this exercise was primarily focused on porting. The motivators to remember why core are: 1) enable cross-platform, 2) inherit language improvement, 3) inherit performance improvement.</strong></em></p>
+<p>The techniques used are outlined below by perspective areas. Each area focuses on learning and key points of interest.</p>
 <h1 id="project">Project</h1>
 <p><strong>Keep current project in tact.</strong> This is similar in practice as applying the <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler">strangler pattern</a>. Doing so will keep the project as a point of reference. More importantly, it keeps the compiler happy and allows for porting each project independently. When selecting the project, always start with the core project (i.e. one with the least to no dependency).</p>
 <p><strong>Preserve project name and namespace.</strong> When creating the project, keep the project name and namespace the same. Do choose a new folder to create the project in. This could be as simple as naming the folder <code>port</code>. If you choose to create a Visual Studio solution folder, make sure it does not end up in the namespace.</p>
