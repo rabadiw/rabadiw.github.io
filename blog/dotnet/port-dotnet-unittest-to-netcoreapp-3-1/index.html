@@ -176,7 +176,7 @@
 <h3 id="wire-up-with-di">Wire up with DI</h3>
 <p>The following code is a snapshot for demonstration purpose. The goal is to demonstrate the ability to leverage the startup code to wire up all DI requirements.</p>
 <pre style="background-color:#2b2c2f;">
-<span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">VisualStudio</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">TestTools</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">UnitTesting</span><span style="color:#5fb3b3;">;
+<code><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">VisualStudio</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">TestTools</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">UnitTesting</span><span style="color:#5fb3b3;">;
 
 [</span><span style="color:#cccece;">TestClass</span><span style="color:#5fb3b3;">]
 </span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductUnitTest
@@ -187,12 +187,12 @@
     </span><span style="color:#c594c5;">public </span><span style="color:#6699cc;">ProductUnitTest</span><span style="color:#5fb3b3;">()
     {
         </span><span style="color:#cccece;">_host </span><span style="color:#5fb3b3;">= </span><span style="color:#cccece;">Host</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">CreateDefaultBuilder</span><span style="color:#5fb3b3;">()
-            .</span><span style="color:#6699cc;">ConfigureWebHostDefaults</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">webBuilder </span><span style="color:#5fb3b3;">=&gt;
-            {
+            .</span><span style="color:#6699cc;">ConfigureWebHostDefaults</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">webBuilder </span><span style="color:#c594c5;">=&gt;
+            </span><span style="color:#5fb3b3;">{
                 </span><span style="color:#cccece;">webBuilder</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseStartup</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">MyProductProject</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Startup</span><span style="color:#5fb3b3;">&gt;();
             })
-            .</span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">services </span><span style="color:#5fb3b3;">=&gt;
-            {
+            .</span><span style="color:#6699cc;">ConfigureServices</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">services </span><span style="color:#c594c5;">=&gt;
+            </span><span style="color:#5fb3b3;">{
                 </span><span style="color:#5f6364;">// potentially an in-memory database
                 </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddScoped</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">DbContext</span><span style="color:#5fb3b3;">&gt;(); 
                 </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddScoped</span><span style="color:#5fb3b3;">&lt;</span><span style="color:#fac863;">ProductController</span><span style="color:#5fb3b3;">&gt;();
@@ -238,7 +238,7 @@
         ...
     }
 }
-</span></pre>
+</span></code></pre>
         </div>
     </article><!-- /.blog-main -->
 

@@ -182,7 +182,7 @@
 </ul>
 <h2 id="setting-up-swagger-and-api-explorer">Setting up Swagger and API Explorer</h2>
 <pre style="background-color:#2b2c2f;">
-<span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Builder</span><span style="color:#5fb3b3;">;
+<code><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Builder</span><span style="color:#5fb3b3;">;
 </span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Hosting</span><span style="color:#5fb3b3;">;
 </span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Mvc</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ApiExplorer</span><span style="color:#5fb3b3;">;
 </span><span style="color:#c594c5;">using </span><span style="color:#cccece;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Extensions</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">Configuration</span><span style="color:#5fb3b3;">;
@@ -207,16 +207,16 @@
         </span><span style="color:#5f6364;">// AddNewtonsoftJson is optional
         </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddControllers</span><span style="color:#5fb3b3;">().</span><span style="color:#6699cc;">AddNewtonsoftJson</span><span style="color:#5fb3b3;">();
 
-        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddApiVersioning</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt;
-        {
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddApiVersioning</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#c594c5;">=&gt;
+        </span><span style="color:#5fb3b3;">{
             </span><span style="color:#5f6364;">// reporting api versions will return the headers &quot;api-supported-versions&quot; and &quot;api-deprecated-versions&quot;
             </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ReportApiVersions </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">false</span><span style="color:#5fb3b3;">;
             </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">AssumeDefaultVersionWhenUnspecified </span><span style="color:#5fb3b3;">= </span><span style="color:#f99157;">true</span><span style="color:#5fb3b3;">;
             </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">DefaultApiVersion </span><span style="color:#5fb3b3;">= new </span><span style="color:#fac863;">Microsoft</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">AspNetCore</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">Mvc</span><span style="color:#5fb3b3;">.</span><span style="color:#fac863;">ApiVersion</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">1</span><span style="color:#5fb3b3;">, </span><span style="color:#f99157;">0</span><span style="color:#5fb3b3;">);
         });
 
-        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddVersionedApiExplorer</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt;
-        {
+        </span><span style="color:#cccece;">services</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">AddVersionedApiExplorer</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">options </span><span style="color:#c594c5;">=&gt;
+        </span><span style="color:#5fb3b3;">{
             </span><span style="color:#5f6364;">// add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
             // note: the specified format code will format the version as &quot;&#39;v&#39;major[.minor][-status]&quot;
             </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">GroupNameFormat </span><span style="color:#5fb3b3;">= &quot;</span><span style="color:#99c794;">&#39;v&#39;VVV</span><span style="color:#5fb3b3;">&quot;;
@@ -243,8 +243,8 @@
 
         </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseSwagger</span><span style="color:#5fb3b3;">();
         </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseSwaggerUI</span><span style="color:#5fb3b3;">(
-            </span><span style="color:#f99157;">options </span><span style="color:#5fb3b3;">=&gt;
-            {
+            </span><span style="color:#f99157;">options </span><span style="color:#c594c5;">=&gt;
+            </span><span style="color:#5fb3b3;">{
                 </span><span style="color:#c594c5;">foreach </span><span style="color:#5fb3b3;">(</span><span style="color:#c594c5;">var </span><span style="color:#cccece;">description </span><span style="color:#c594c5;">in </span><span style="color:#cccece;">provider</span><span style="color:#5fb3b3;">.</span><span style="color:#cccece;">ApiVersionDescriptions</span><span style="color:#5fb3b3;">)
                 {
                     </span><span style="color:#cccece;">options</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">SwaggerEndpoint</span><span style="color:#5fb3b3;">(
@@ -255,15 +255,15 @@
 
         </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseRouting</span><span style="color:#5fb3b3;">();
 
-        </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseEndpoints</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">endpoints </span><span style="color:#5fb3b3;">=&gt;
-        {
+        </span><span style="color:#cccece;">app</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">UseEndpoints</span><span style="color:#5fb3b3;">(</span><span style="color:#f99157;">endpoints </span><span style="color:#c594c5;">=&gt;
+        </span><span style="color:#5fb3b3;">{
             </span><span style="color:#cccece;">endpoints</span><span style="color:#5fb3b3;">.</span><span style="color:#6699cc;">MapControllers</span><span style="color:#5fb3b3;">();
         });
     }
 }
-</span></pre><h2 id="apicontroller">ApiController</h2>
+</span></code></pre><h2 id="apicontroller">ApiController</h2>
 <pre style="background-color:#2b2c2f;">
-<span style="color:#cccece;">    </span><span style="color:#5fb3b3;">[</span><span style="color:#cccece;">ApiController</span><span style="color:#5fb3b3;">]
+<code><span style="color:#cccece;">    </span><span style="color:#5fb3b3;">[</span><span style="color:#cccece;">ApiController</span><span style="color:#5fb3b3;">]
     [</span><span style="color:#cccece;">Route</span><span style="color:#5fb3b3;">(&quot;</span><span style="color:#99c794;">api/[controller]</span><span style="color:#5fb3b3;">&quot;)]
     </span><span style="color:#c594c5;">public class </span><span style="color:#fac863;">ProductController </span><span style="color:#5fb3b3;">: </span><span style="color:#99c794;">ControllerBase
     </span><span style="color:#5fb3b3;">{
@@ -274,7 +274,7 @@
             ...
         }
     }
-</span></pre>
+</span></code></pre>
         </div>
     </article><!-- /.blog-main -->
 
